@@ -62,6 +62,9 @@ class GameState:
                     if self._board[x][y] == 0:
                         possible_moves.append((x, y))
 
+        move_directions = [(-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1)]
+
+        for move in move_directions:
 
 
         return possible_moves
