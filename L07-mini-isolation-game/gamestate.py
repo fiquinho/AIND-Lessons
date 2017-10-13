@@ -9,7 +9,7 @@ class GameState:
     def __init__(self):
 
         self._board = [[0] * BOARD_Y_DIM for _ in range(BOARD_X_DIM)]
-        self._board[BOARD_X_DIM - 1][BOARD_Y_DIM - 1] = 1
+        self._board[-1][-1] = 1
 
         self.step_number = 0
         self.players_positions = [None, None]
@@ -24,18 +24,18 @@ class GameState:
         move: tuple
             The target position for the active player's next move
         """
-        new_board = deepcopy(self._board)
+        new_board = deepcopy(self)
 
-        if move in self.get_legal_moves():
+        if move in new_board.get_legal_moves():
 
             player_new_x_position = move[0]
             player_new_y_position = move[1]
 
-            new_board[player_new_x_position][player_new_y_position] = 1
+            new_board._board[player_new_x_position][player_new_y_position] = 1
 
-            self.players_positions[self.player_turn] = move
-            self.player_turn = 1 if self.player_turn == 0 else 0
-            self.step_number += 1
+            new_board.players_positions[new_board.player_turn] = move
+            new_board.player_turn = 1 if new_board.player_turn == 0 else 0
+            new_board.step_number += 1
 
             return new_board
         else:
