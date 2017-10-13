@@ -61,10 +61,25 @@ class GameState:
                 for y in range(BOARD_Y_DIM):
                     if self._board[x][y] == 0:
                         possible_moves.append((x, y))
+            return possible_moves
 
         move_directions = [(-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1)]
 
         for move in move_directions:
-
+            actual_player_position = self.players_positions[self.player_turn]
+            keep_moving = True
+            new_x_position = actual_player_position[0] + move[0]
+            new_y_position = actual_player_position[1] + move[1]
+            while keep_moving:
+                if new_x_position < 0 or new_x_position >= BOARD_X_DIM:
+                    keep_moving = False
+                elif new_y_position < 0 or new_y_position >=  BOARD_Y_DIM:
+                    keep_moving = False
+                elif self._board[new_x_position][new_y_position] == 1:
+                    keep_moving = False
+                else:
+                    possible_moves.append((new_x_position, new_y_position))
+                    new_x_position += move[0]
+                    new_y_position += move[1]
 
         return possible_moves
